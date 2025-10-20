@@ -26,7 +26,23 @@ public class DataType {
         DatagramPacket pkt2 = new DatagramPacket(buffer, buffer.length);
         socket.receive(pkt2);
         
+        String s1 = new String(pkt2.getData());
+        String[] tmp = s1.trim().split(";");
+        String requestId = tmp[0];
+        String[] a = tmp[1].split(",");
+        Arrays.sort(a, 0, a.length, new Comparator<String>(){
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.parseInt(o2) - Integer.parseInt(o1);
+            }
+            
+        });
         
+        String ans = requestId + ";" + a[0] + "," + a[a.length - 1];
+        System.out.println(ans);
+        
+        DatagramPacket pkt3 = new DatagramPacket(ans.getBytes(), ans.length(), addr, port);
+        socket.send(pkt3);
     }
 }
 

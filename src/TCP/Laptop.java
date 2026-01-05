@@ -25,16 +25,36 @@ public class Laptop implements Serializable {
         this.quantity = quantity;
     }
 
-    public void solve() {
-        this.quantity = Integer.parseInt(new StringBuilder(String.valueOf(this.quantity)).reverse().toString());
-        String[] parts = this.name.trim().split("\\s+");
+    public int getId() {
+        return id;
+    }
 
-        StringBuilder result = new StringBuilder();
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        for (String word : parts) {
-            result.append(new StringBuilder(word).reverse()).append(" ");
-        }
-        this.name = result.toString();
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }

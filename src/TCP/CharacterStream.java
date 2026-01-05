@@ -12,6 +12,7 @@ import java.util.*;
  *
  * @author ADMIN
  */
+//tcp - character stream
 public class CharacterStream {
     public static void main(String[] args) throws IOException{
         String studentCode = "B22DCCN827";

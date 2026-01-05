@@ -12,6 +12,8 @@ import java.util.*;
  *
  * @author ADMIN
  */
+
+//TCP - Byte Stream
 public class Chkn135k {
 
     public static void main(String[] args) throws Exception {

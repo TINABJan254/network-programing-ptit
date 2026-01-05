@@ -13,22 +13,20 @@ import java.util.*;
  * @author ADMIN
  */
 public class test {
-    public static void main(String[] args) throws IOException{
-        Socket socket = new Socket("203.162.10.109", 2207);
-        DataInputStream reader = new DataInputStream(socket.getInputStream());
-        DataOutputStream writter = new DataOutputStream(socket.getOutputStream());
-        writter.writeUTF("B22DCCN827;DG0kqn1c");
-        writter.flush();
-        int a = reader.readInt();
-        int b = reader.readInt();
-        int tong = a + b;
-        int tich = a*b;
-        writter.writeInt(tong);
-        writter.writeInt(tich);
-        writter.flush();
-        writter.close();
-        reader.close();
-        socket.close();
+    
+    public static int gcd(int a, int b){
+        while (b != 0){
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int n = 1293;
+        System.out.println(Integer.toOctalString(n));
+        System.out.println(Integer.toHexString(n));
         
     }
 }

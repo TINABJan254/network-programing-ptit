@@ -13,13 +13,13 @@ import java.util.*;
 import java.io.*;
 import java.net.*;
 
-public class ChuanHoaThongTinSasch {
+public class ChuanHoaThongTinNhanVien {
     public static void main(String[] args) throws Exception{
         DatagramSocket socket = new DatagramSocket();
         InetAddress addr = InetAddress.getByName("203.162.10.109");
         int port = 2209;
         
-        String iMes = ";B22DCCN385;phaUIEJ9";
+        String iMes = ";B22DCCN413;qWUPaQyx";
         DatagramPacket p1 = new DatagramPacket(iMes.getBytes(), iMes.length(), addr, port);
         socket.send(p1);
         
@@ -31,42 +31,34 @@ public class ChuanHoaThongTinSasch {
         
         ByteArrayInputStream input = new ByteArrayInputStream(p2.getData(), 8, p2.getLength() - 8);
         ObjectInputStream in = new ObjectInputStream(input);
-        Book b = (Book)in.readObject();
+        Employee e = (Employee)in.readObject();
         
-        //chuan hoa title
-        String[] a = b.getTitle().split("\\s+");
-        String newTitle = "";
+        //chuan hoa ten
+        String[] a = e.getName().split("\\s+");
+        String newName = "";
         for (String x : a) {
-            newTitle += Character.toUpperCase(x.charAt(0)) + x.substring(1).toLowerCase() + " ";
+            System.out.println(x);
+            newName += Character.toUpperCase(x.charAt(0)) + x.substring(1).toLowerCase() +  " ";
         }
-        b.setTitle(newTitle.trim());
+        e.setName(newName.trim());
+        System.out.println(newName);
         
-        //chuan hoa author
-        
-        a = b.getAuthor().split("\\s+");
-        String newAu = "";
-        newAu += a[0].toUpperCase() + ", ";
-        for (int i = 1; i < a.length; i++) {
-            newAu += Character.toUpperCase(a[i].charAt(0)) + a[i].substring(1).toLowerCase() + " ";
+        //tang luong
+        double sum = 0;
+        for (char c : e.getHireDate().substring(0, 4).toCharArray()){
+            sum += c - '0';
         }
-        newAu = newAu.trim();
+        sum /= 100;
+        double newSal = sum * e.getSalary() + e.getSalary();
+        e.setSalary(Math.round(newSal * 100.0)/100.0);
         
-        b.setAuthor(newAu);
-        //chuan hoa isbn
-        String newIsbn = "";
-        String tmp = b.getIsbn();
-        newIsbn = tmp.substring(0, 3) + "-" + tmp.substring(3, 4) + "-" + tmp.substring(4, 6) + "-" + tmp.substring(6, 12) + 
-                "-" + tmp.substring(12);
-        
-        b.setIsbn(newIsbn);
-        
-        //chuan hoa publish date
-        String newPd = b.getPublishDate().substring(5, 7) + "/" + b.getPublishDate().substring(0, 4);
-        b.setPublishDate(newPd);
+        //chuan hoa hire date
+        String tmp = e.getHireDate();
+        e.setHireDate( tmp.substring(8)+ "/" + tmp.substring(5, 7) + "/" + tmp.substring(0, 4));
         
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(output);
-        out.writeObject(b);
+        out.writeObject(e);
         out.flush();
         
         byte[] res = new byte[8 + output.size()];

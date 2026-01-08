@@ -8,7 +8,10 @@ package UDP;
  *
  * @author ADMIN
  */
-public class Book {
+
+import java.io.*;
+
+public class Book implements Serializable{
     private static final long serialVersionUID = 20251107L;
     
     private String id, title, author, isbn, publishDate;
